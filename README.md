@@ -1,37 +1,36 @@
-from django.db import models
+# Django IA Lab Block One
 
-from django.db import models
+Este proyecto es una plantilla base para un laboratorio de Django, orientado a prácticas de desarrollo web y experimentación con inteligencia artificial.
 
-class Cliente(models.Model):
-    nombre = models.CharField(max_length=120)
-    correo = models.EmailField(unique=True)
-    fecha_registro = models.DateTimeField(auto_now_add=True)
-    activo = models.BooleanField(default=True)
+## Descripción
+El proyecto implementa una aplicación web con Django, estructurada en dos partes principales:
+- `core`: Configuración principal del proyecto.
+- `tienda`: Gestión de productos, pedidos y clientes, con vistas, modelos y formularios.
 
-    def __str__(self):
-        return f"{self.nombre} <{self.correo}>"
+## Instrucciones para ejecutar el proyecto
+1. **Clona el repositorio:**
+	```bash
+	git clone <url-del-repositorio>
+	cd django-ia-lab-block-one
+	```
+2. **Instala las dependencias:**
+	```bash
+	pip install -r requirements.txt
+	```
+3. **Aplica las migraciones:**
+	```bash
+	python manage.py migrate
+	```
+4. **Ejecuta el servidor de desarrollo:**
+	```bash
+	python manage.py runserver
+	```
+5. Accede a la aplicación en [http://localhost:8000](http://localhost:8000)
 
-class Producto(models.Model):
-    nombre = models.CharField(max_length=100)
-    descripcion = models.TextField()
-    precio = models.DecimalField(max_digits=8, decimal_places=2)
-    creado_en = models.DateTimeField(auto_now_add=True)
+## Contenido de las ramas
+- **main**: Rama principal y estable del proyecto.
+- **class2**: Rama de trabajo para la clase 2, incluye nuevas funcionalidades y experimentos desarrollados durante la sesión.
+- **class3**: Rama de trabajo para la clase 3, incluye nuevas funcionalidades y experimentos desarrollados durante la sesión.
 
-    def __str__(self):
-        return self.nombre
-
-class Pedido(models.Model):
-    ESTADOS = [
-        ("CREADO", "Creado"),
-        ("PAGADO", "Pagado"),
-        ("ENVIADO", "Enviado"),
-        ("CERRADO", "Cerrado"),
-    ]
-
-    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, related_name="pedidos")
-    productos = models.ManyToManyField(Producto, related_name="pedidos")
-    estado = models.CharField(max_length=10, choices=ESTADOS, default="CREADO")
-    fecha = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f"Pedido #{self.pk} - {self.cliente.nombre} ({self.estado})"
+---
+Para dudas o sugerencias, contacta al responsable del repositorio.
